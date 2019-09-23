@@ -1,4 +1,6 @@
-# morphing
+# Morphing
+
+I have challenged myself to make a simplified version of the Hero Swift Library to morph from 1 element to another. In this test a button to a full content page. **This is not at all complete yet**
 
 ## Project setup
 ```
