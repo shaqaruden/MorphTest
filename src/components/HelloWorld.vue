@@ -1,58 +1,79 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="flex-1 flex flex-col items-center">
+    <div class="bg-green-500 rounded-lg m-4 morph relative" @click="morph">
+      <button v-show="active" class="mt-1 ml-3 text-white absolute close" style="opacity: 0;" @click="unMorph">
+        <i class="fa fa-times fa-2x"></i>
+      </button>
+      <button class="p-4 activator" v-if="!active">
+        <img class="h-16" src="../assets/dropbox.png" alt />
+      </button>
+    </div>
+    <div class="w-screen h-full bg-white mt-64 absolute content" style="opacity: 0; border-radius: 2rem"></div>
   </div>
 </template>
 
 <script>
+import anime from 'animejs/lib/anime.es.js';
+
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: "HelloWorld",
+  data() {
+    return {
+      active: false,
+      morphAnime: null,
+      activatorAnime: null,
+      contentAnime: null,
+      closeAnime: null
+    }
+  },
+  methods: {
+    morph() {
+      this.morphAnime = anime({
+        targets: ".morph",
+        borderRadius: ['.5rem', '0rem'],
+        margin: '0',
+        width: "100vw",
+        height: "30vh",
+        easing: "easeInOutQuad",
+        duration: '500',
+        begin: (anim => {
+          this.active = true
+        })
+      });
+      this.activatorAnime = anime({
+        targets: ".activator",
+        opacity: 0,
+        easing: 'easeInOutQuad',
+        duration: '500'
+      });
+      this.contentAnime = anime({
+        targets: ".content",
+        opacity: "1",
+        top: "-4rem",
+        easing: 'easeInOutQuad',
+        delay: '50',
+        duration: '500'
+      });
+      this.closeAnime = anime({
+        targets: ".close",
+        opacity: "1",
+        easing: 'easeInOutQuad',
+        delay: '50',
+        duration: '500'
+      });
+    },
+    unMorph() {
+      this.morphAnime.reverse
+      this.activatorAnime.reverse
+      this.contentAnime.reverse
+      this.closeAnime.reverse
+    }
   }
-}
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.dropbox {
+  fill: orange;
 }
 </style>
