@@ -1,6 +1,13 @@
 <template>
-  <div class="flex-1 flex flex-col items-center">
-    <div class="bg-green-500 rounded-lg m-4 morph relative" @click="morph">
+  <div class="flex w-full flex-col items-start">
+    <h3 class="text-2xl font-bold p-4">Share</h3>
+    <div class="min-w-full h-48 bg-blue-200 flex overflow-x-auto">
+      <div class="h-48 w-48 bg-red-500 rounded-lg mx-2"></div>
+      <div class="h-48 w-48 bg-red-500 rounded-lg mx-2"></div>
+      <div class="h-48 w-48 bg-red-500 rounded-lg mx-2"></div>
+      <div class="h-48 w-48 bg-red-500 rounded-lg mx-2"></div>
+    </div>
+    <!-- <div class="bg-green-500 rounded-lg m-4 morph relative" @click="morph">
       <button v-show="active" class="mt-1 ml-3 text-white absolute close" style="opacity: 0;" @click="unMorph">
         <i class="fa fa-times fa-2x"></i>
       </button>
@@ -8,7 +15,7 @@
         <img class="h-16" src="../assets/dropbox.png" alt />
       </button>
     </div>
-    <div class="w-screen h-full bg-white mt-64 absolute content" style="opacity: 0; border-radius: 2rem"></div>
+    <div class="w-screen h-full bg-white mt-64 absolute content" style="opacity: 0; border-radius: 2rem"></div> -->
   </div>
 </template>
 
